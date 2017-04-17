@@ -12,7 +12,7 @@ Jako, że kolumn jest bardzo dużo, wybrałam poniższe interesujące kolumny:
 |Id (integer primary key) | id|
 |Sex | płec (M = Mężczyzna, F = Kobieta)|
 |Education | wykształcenie|
-|AgeType | wyznacza w jakich jednostkach będzie wyznaczony wiek w kolumnie,np.: Year, Minute|
+|AgeType | wyznacza w jakich jednostkach będzie wyznaczony wiek w kolumnie Age,np.: Year, Hour|
 |Age | wiek zgonu w jednostce zdefiniowanej przez kolumnę AgeType|
 |MaritalStatus  | status małżeński ("Never married, single", Married, Widowed, Divorced, "Marital Status unknown")|
 |MonthOfDeath | miesiąc śmierci (numer)|
@@ -20,11 +20,11 @@ Jako, że kolumn jest bardzo dużo, wybrałam poniższe interesujące kolumny:
 |Race | rasa 
 |MannerOfDeath | sposób zgonu (np.: Accident, Suicides)|
 |PlaceOfDeathAndDecedentsStatus | miejsce zgonu|
-|ActivityCode | aktywność, krótko przed śmiercią|
+|ActivityCode | aktywność krótko przed śmiercią|
 |Icd10Code | kod podstawowej przyczyny śmierci (kod ICD-10 - Międzynarodowa Statystyczna Klasyfikacja Chorób i Problemów Zdrowotnych) |
 |Icd10Code_Description | opis kodu ICD-10|
 
-Dane do importu przygotowałam przy pomocy skryptu [prepare.R](https://github.com/abie115/nosql/tree/master/prepare/prepare.R)
+Dane do importu przygotowałam przy pomocy skryptu [prepare.R](https://github.com/abie115/nosql-exam/blob/master/prepare/prepare.R)
 
 Import zbioru do mongo:
 ```bash
