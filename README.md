@@ -2,7 +2,8 @@
 Zespół/Indywidualnie:
 - Aldona Biewska
 
-Zbiór zawiera dane na temat zgonów w Stanach zjednoczonych w 2014 roku, pochodzi on z [kaggle.com](https://www.kaggle.com/cdc/mortality).
+Wybrany zbiór danych: [Zgony w Stanach Zjednoczonych w 2014 roku](https://www.kaggle.com/cdc/mortality)
+
 Cały zbiór jest podzielony na kilkadziesiąt tabel, każda w osobnym pliku .csv.
 Przed przystąpieniem do importu do mongo, scaliłam wybrane tabele.
 Jako, że kolumn jest bardzo dużo, wybrałam poniższe interesujące kolumny:
