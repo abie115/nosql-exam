@@ -36,7 +36,7 @@ Wybrałam poniże pola:
 |MannerOfDeath | sposób zgonu (np.: Accident, Suicides)|
 |PlaceOfDeathAndDecedentsStatus | miejsce zgonu|
 |ActivityCode | aktywność krótko przed zgonem|
-|Icd10Code | kod podstawowej przyczyny śmierci (kod ICD-10 - Międzynarodowa Statystyczna Klasyfikacja Chorób i Problemów Zdrowotnych) |
+|Icd10Code | kod podstawowej przyczyny śmierci (ICD-10 - to międzynarodowa klasyfikacja chorób) |
 |Icd10Code_Description | opis kodu ICD-10|
 
 Przykładowy rekord:
@@ -85,15 +85,15 @@ eksport wyniku do .csv:
 cd scripts 
 mongo --quiet agg1.js | jq "[.[] | {Icd10Code_Description: ._id, count: .count }]" | json2csv -f Icd10Code_Description,count  -o result1.csv
 ```
-Wynik zapisany w pliku [result1.csv](https://github.com/abie115/nosql-exam/blob/master/results/result1.js)
+Wynik zapisany w pliku [result1.csv](https://github.com/abie115/nosql-exam/blob/master/results/result1.csv)
 
-| "Icd10Code_Description"|"count"                             | 
-|------------------------|------------------------------------| 
-| "Atherosclerotic heart disease"|161961                      | 
-| "Malignant neoplasm: Bronchus or lung, unspecified"|154862  | 
-| "Unspecified dementia"|122021                               | 
-| "Acute myocardial infarction, unspecified"|114107           | 
-| "Chronic obstructive pulmonary disease, unspecified"|107836 | 
+| Icd10Code_Description|count                               | 
+|----------------------|------------------------------------| 
+| Atherosclerotic heart disease|161961                      | 
+| Malignant neoplasm: Bronchus or lung, unspecified|154862  | 
+| Unspecified dementia|122021                               | 
+| Acute myocardial infarction, unspecified|114107           | 
+| Chronic obstructive pulmonary disease, unspecified|107836 | 
 
 Przykładowe planowane agregacje:
 - porównanie ilości zgonów kobiet i mężczyzn
