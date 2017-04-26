@@ -1,7 +1,7 @@
 # Projekt Aggregation Pipeline (egzamin)
 
 ### Aldona Biewska
-
+* prezentacja: [prezentacja.pdf](https://github.com/abie115/nosql-exam/blob/master/pdf/prezentacja.pdf)
 ## Dane
 
 * [Zgony w Stanach Zjednoczonych w 2014 roku](https://www.kaggle.com/cdc/mortality)
@@ -14,7 +14,7 @@
 | Icd10Code.csv           | 12131             | 3s           | 
 
 _deaths_:
-```json
+```js
 {                                                                
   "_id" : ObjectId("58fcdd07bd26e96c4d2d9129"),            
   "Id" : 1,                                                
@@ -32,7 +32,7 @@ _deaths_:
 }                                                                
 ```
 _conditions_:
-```json
+```js
 {                                                                
   "_id" : ObjectId("58fcdebfbd26e96c4d55c198"),            
   "Id" : 1,                                                
@@ -44,7 +44,7 @@ _conditions_:
 }                                                                
 ```
 _icd10_:
-```json
+```js
 {
   "_id" : ObjectId("58fce11abd26e96c4dd0c1d1"),
   "Code" : "A00",
@@ -60,6 +60,6 @@ _icd10_:
 4. Porównanie ilościowe i procentowe zgonów w wyniku zabójstwa wobec ras (niektóre szczegółowe rasy należy zgrupować).
 
 
-### Prezentacja
+## Prezentacja
 
 link do pliku pdf z tekstem prezentacji: [prezentacja.pdf](https://github.com/abie115/nosql-exam/blob/master/pdf/prezentacja.pdf)
