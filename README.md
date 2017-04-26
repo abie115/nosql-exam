@@ -57,7 +57,7 @@ _icd10_:
 1. Porównanie samobójstw w danym przedziale wiekowym.
 2. Wpływ edukacji i stanu cywilnego na żywotność kobiet i mężczyzn.
 3. Najczęstsze czynniki pośrednie przyczyniające się do głownej przyczyny śmierci.
-4. Porównanie ilościowe i procentowe zgonów w wyniku zabójstwa wobec ras (niektóre szczegółowe rasy należy zgrupować).
+4. Porównanie ilościowe i procentowe zgonów w wyniku zabójstwa, pogrupowane według wybranych ras (niektóre szczegółowe rasy należy zgrupować).
 
 
 ## Prezentacja
