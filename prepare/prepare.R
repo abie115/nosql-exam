@@ -1,3 +1,5 @@
+require(dplyr)
+
 death <- read.csv("D:\\nosql-egzam\\DeathRecords\\DeathRecords.csv")
 ageType <- read.csv("D:\\nosql-egzam\\DeathRecords\\AgeType.csv")
 education <- read.csv("D:\\nosql-egzam\\DeathRecords\\Education2003Revision.csv")
@@ -5,9 +7,8 @@ maritalStatus<- read.csv("D:\\nosql-egzam\\DeathRecords\\MaritalStatus.csv")
 dayOfWeekOfDeath<- read.csv("D:\\nosql-egzam\\DeathRecords\\DayOfWeekOfDeath.csv")
 race<- read.csv("D:\\nosql-egzam\\DeathRecords\\Race.csv")
 mannerOfDeath<- read.csv("D:\\nosql-egzam\\DeathRecords\\MannerOfDeath.csv")
-placeOfDeathAndDecedentsStatus<- read.csv("D:\\nosql-egzam\\DeathRecords\\PlaceOfDeathAndDecedentsStatus.csv")
 activityCode<- read.csv("D:\\nosql-egzam\\DeathRecords\\ActivityCode.csv")
-icd10code <- read.csv("D:\\nosql-egzam\\DeathRecords\\Icd10Code.csv")
+#icd10code <- read.csv("D:\\nosql-egzam\\DeathRecords\\Icd10Code.csv")
 
 
 filteredSet = death[,c("Id", "Sex","AgeType","Age","PlaceOfDeathAndDecedentsStatus",
@@ -40,18 +41,14 @@ filteredSet <- left_join(filteredSet, mannerOfDeath, by = c("MannerOfDeath" = "C
 filteredSet$MannerOfDeath <- NULL
 names(filteredSet)[names(filteredSet) == "Description"] <- "MannerOfDeath"
 
-filteredSet <- left_join(filteredSet, placeOfDeathAndDecedentsStatus, by = c("PlaceOfDeathAndDecedentsStatus" = "Code"))
-filteredSet$PlaceOfDeathAndDecedentsStatus <- NULL
-names(filteredSet)[names(filteredSet) == "Description"] <- "PlaceOfDeathAndDecedentsStatus"
-
 filteredSet <- left_join(filteredSet, activityCode, by = c("ActivityCode" = "Code"))
 filteredSet$ActivityCode <- NULL
 names(filteredSet)[names(filteredSet) == "Description"] <- "ActivityCode"
 
-filteredSet <- left_join(filteredSet, icd10code, by = c("Icd10Code" = "Code"))
-names(filteredSet)[names(filteredSet) == "Description"] <- "Icd10Code_Description"
+#filteredSet <- left_join(filteredSet, icd10code, by = c("Icd10Code" = "Code"))
+#names(filteredSet)[names(filteredSet) == "Description"] <- "Icd10Code_Description"
 
-filteredSet$Icd10Code <- factor(dfilteredSet$Icd10Code)
+#filteredSet$Icd10Code <- factor(dfilteredSet$Icd10Code)
 
 #write to csv
-write.csv(filteredSet,file = "D:\\nosql-egzam\\death_data.csv", row.names=FALSE)
+write.csv(filteredSet,file = "D:\\nosql-egzam\\DeathRecords_prepare.csv", row.names=FALSE)

@@ -1,6 +1,11 @@
-"Icd10Code_Description","count"
-"Atherosclerotic heart disease",161961
-"Malignant neoplasm: Bronchus or lung, unspecified",154862
-"Unspecified dementia",122021
-"Acute myocardial infarction, unspecified",114107
-"Chronic obstructive pulmonary disease, unspecified",107836
+"age","count"
+1-9,3
+10-19,2270
+20-29,6578
+30-39,6526
+40-49,7712
+50-59,9032
+60-69,5588
+70-79,3115
+80-89,1898
+90-99,403

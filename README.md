@@ -1,103 +1,65 @@
-# Projekt na egzamin
-Zespół/Indywidualnie:
-- Aldona Biewska
+# Projekt Aggregation Pipeline (egzamin)
 
-Wybrany zbiór danych: [Zgony w Stanach Zjednoczonych w 2014 roku](https://www.kaggle.com/cdc/mortality)
+### Aldona Biewska
 
-Informacje o komputerze na którym były wykonywane obliczenia:
+## Dane
 
-| Nazwa                 | Wartość    |
-|-----------------------|------------|
-| System operacyjny     | Windows 7 x64 |    
-| Procesor              | Intel Core i5-2450M |
-| Ilość rdzeni          | 4 |
-| Pamięć                | 6GB |
-| Dysk                  | 700 GB HDD |
-| Baza danych           |            |
+* [Zgony w Stanach Zjednoczonych w 2014 roku](https://www.kaggle.com/cdc/mortality)
+* próbki danych po 1001 dokumentów dla [DeathRecords_sample.csv](https://github.com/abie115/nosql-exam/blob/master/sample/DeathRecords_sample.csv) i [EntityAxisConditions_sample.csv](https://github.com/abie115/nosql-exam/blob/master/sample/EntityAxisConditions_sample.csv) oraz 12131 dokumentów dla [Icd10Code.csv](https://github.com/abie115/nosql-exam/blob/master/sample/Icd10Code.csv)
 
+| Plik                    | Liczba dokumentów | Czas importu | 
+|-------------------------|-------------------|--------------| 
+| DeathRecords.csv        | 2631171           | 4 min 4 s    | 
+| EntityAxisCondition.csv | 8052877           | 7min 41s     | 
+| Icd10Code.csv           | 12131             | 3s           | 
 
-### Przedstawienie danych
-Cały zbiór jest podzielony na kilkadziesiąt tabel, każda w osobnym pliku .csv.
-Dane do importu do MongoDB przygotowałam i obrobiłam przy pomocy skryptu [prepare.R](https://github.com/abie115/nosql-exam/blob/master/prepare/prepare.R). 
-
-Wybrałam poniże pola:
-
-|Pole |Opis|
-|-----|----|
-|Id (integer primary key) | id|
-|Sex | płec (M = Mężczyzna, F = Kobieta)|
-|Education | wykształcenie|
-|AgeType | jednostka w jakiej będzie wyznaczony wiek w kolumnie Age,np.: Year, Hour|
-|Age | wiek zgonu w jednostce zdefiniowanej przez kolumnę AgeType|
-|MaritalStatus  | status małżeński ("Never married, single", Married, Widowed, Divorced, "Marital Status unknown")|
-|MonthOfDeath | miesiąc zgonu (numer)|
-|DayOfWeekOfDeath | dzień tygodnia zgonu|
-|Race | rasa 
-|MannerOfDeath | sposób zgonu (np.: Accident, Suicides)|
-|PlaceOfDeathAndDecedentsStatus | miejsce zgonu|
-|ActivityCode | aktywność krótko przed zgonem|
-|Icd10Code | kod podstawowej przyczyny śmierci (ICD-10 - to międzynarodowa klasyfikacja chorób) |
-|Icd10Code_Description | opis kodu ICD-10|
-
-Przykładowy rekord:
-```js
-{                                                                                        
-  "_id" : ObjectId("58f454b899110e31554609a7"),                                    
-  "Id" : 1,                                                                        
-  "Sex" : "M",                                                                     
-  "Age" : 87,                                                                      
-  "MonthOfDeath" : 1,                                                              
-  "Icd10Code" : "I64",                                                             
-  "AgeType" : "Years",                                                             
-  "Education" : "9 - 12th grade, no diploma",                                      
-  "MaritalStatus" : "Married",                                                     
-  "DayOfWeekOfDeath" : "Wednesday",                                                
-  "Race" : "White",                                                                
-  "MannerOfDeath" : "Natural",                                                     
-  "PlaceOfDeathAndDecedentsStatus" : "Decedent's home",                            
-  "ActivityCode" : "Not applicable",                                               
-  "Icd10Code_Description" : "Stroke, not specified as haemorrhage or infarction"   
-}                                                                                        
+_deaths_:
+```json
+{                                                                
+  "_id" : ObjectId("58fcdd07bd26e96c4d2d9129"),            
+  "Id" : 1,                                                
+  "Sex" : "M",                                             
+  "Age" : 87,                                              
+  "MonthOfDeath" : 1,                                      
+  "Icd10Code" : "I64",                                     
+  "AgeType" : "Years",                                     
+  "Education" : "9 - 12th grade, no diploma",              
+  "MaritalStatus" : "Married",                             
+  "DayOfWeekOfDeath" : "Wednesday",                        
+  "Race" : "White",                                        
+  "MannerOfDeath" : "Natural",  
+  "ActivityCode" : "Not applicable"                        
+}                                                                
+```
+_conditions_:
+```json
+{                                                                
+  "_id" : ObjectId("58fcdebfbd26e96c4d55c198"),            
+  "Id" : 1,                                                
+  "DeathRecordId" : 1,                                     
+  "Part" : 1,                                              
+  "Line" : 1,                                              
+  "Sequence" : 1,                                          
+  "Icd10Code" : "I64"                                      
+}                                                                
+```
+_icd10_:
+```json
+{
+  "_id" : ObjectId("58fce11abd26e96c4dd0c1d1"),
+  "Code" : "A00",
+  "Description" : "Cholera"
+}
 ```
 
-#### Import danych do MongoDB
+## Agregacje
 
-```bash
-mongoimport -d db_ex -c deaths --type csv --file death_data.csv --headerline
-```
-Liczba zaimportowanych rekordów:
-```js
-db.deaths.count()
-2631171
-```
-### Agregacja1
-5 najczęstszych przyczyn zgonu według Icd10:
-```js
-db.deaths.aggregate([
-	{ $group: {_id: "$Icd10Code_Description", count: {$sum: 1}} }, 
-	{ $sort: {count: -1} }, { $limit : 5}
-]);
-```
-[skrypt JS z aggregacją](https://github.com/abie115/nosql-exam/blob/master/scripts/agg1.js)
+1. Porównanie samobójstw w danym przedziale wiekowym.
+2. Wpływ edukacji i stanu cywilnego na żywotność kobiet i mężczyzn.
+3. Najczęstsze czynniki pośrednie przyczyniające się do głownej przyczyny śmierci.
+4. Porównanie ilościowe i procentowe zgonów w wyniku zabójstwa wobec ras (niektóre szczegółowe rasy należy zgrupować).
 
-eksport wyniku do .csv:
-```bash
-cd scripts 
-mongo --quiet agg1.js | jq "[.[] | {Icd10Code_Description: ._id, count: .count }]" | json2csv -f Icd10Code_Description,count  -o result1.csv
-```
-Wynik zapisany w pliku [result1.csv](https://github.com/abie115/nosql-exam/blob/master/results/result1.csv)
 
-| Icd10Code_Description|count                               | 
-|----------------------|------------------------------------| 
-| Atherosclerotic heart disease|161961                      | 
-| Malignant neoplasm: Bronchus or lung, unspecified|154862  | 
-| Unspecified dementia|122021                               | 
-| Acute myocardial infarction, unspecified|114107           | 
-| Chronic obstructive pulmonary disease, unspecified|107836 | 
+### Prezentacja
 
-Przykładowe planowane agregacje:
-- porównanie ilości zgonów kobiet i mężczyzn
-- porówanie wieku, w jakim był zgon i przyczyny
-- pechowy dzień, czyli najczęstszy dzień tygodnia zgonu
-- TODO
-...
+link do pliku pdf z tekstem prezentacji: [prezentacja.pdf](https://github.com/abie115/nosql-exam/blob/master/pdf/prezentacja.pdf)
