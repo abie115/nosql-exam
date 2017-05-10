@@ -2,49 +2,18 @@ var conn = new Mongo();
 var db = conn.getDB('dbexam');
 
 var result = 
-	db.deaths.aggregate([
-	 { 
-		$project: { "Id": 1,"MannerOfDeath": 1, "Race_new":
-		 {
-			 $switch: {
-				branches: [
-				 { case: { $eq: [ "$Race","White" ] }, then: "White" },
-				 { case: { $eq: [ "$Race","Black" ] }, then: "Black" },
-				 { case: { $or: [ 
-							{ $eq: [ "$Race", "Chinese" ] },
-							{ $eq: [ "$Race", "Japanese" ] },
-							{ $eq: [ "$Race", "Asian Indian" ] },
-							{ $eq: [ "$Race", "Korean" ] },
-							{ $eq: [ "$Race", "Other Asian or Pacific Islander" ] },
-							{ $eq: [ "$Race", "American Indian (includes Aleuts and Eskimos)" ] },
-							{ $eq: [ "$Race", "Vietnamese" ] },
-							{ $eq: [ "$Race", "Guamanian" ] },
-						] }, then: "Yellow" }
-			  ],
-				  default: "Did not match"
-		   }
-		 }
-	   }
-	 },
-	 {  $match: {"MannerOfDeath":"Homicide","Race_new":{$ne: "Did not match"} } },
-	 {  $group: {_id:{race: "$Race_new"}, count: {$sum: 1} } }, 
-	 { 
-		$project: { "percentage":
-		{
-		  $switch: {
-			branches: [
-			   { case: { $eq: [ "$_id.race","White" ] }, 
-						 then: {"$multiply":[{"$divide":[100,2241510]},"$count"]} },
-			   { case: { $eq: [ "$_id.race","Black" ] }, 
-						 then: {"$multiply":[{"$divide":[100,309504]},"$count"]} },
-			   { case: { $eq: [ "$_id.race","Yellow" ] }, 
-						 then: {"$multiply":[{"$divide":[100,56205]},"$count"]} },
-		   ],
-		  default: "0"
-		 } 
-		},"_id":0,"count":"$count","race":"$_id.race"
-	   }
-	  }
-	]);
+	db.conditions.aggregate([ 
+		{ $group: { _id : "$DeathRecordId", Other_conditions: { $push: "$$ROOT" } } },
+		{ $match: { "Other_conditions": {  "$elemMatch": { "Part" : 1, "Line":1, "Icd10Code":"I469"}}}},
+		{ $unwind : "$Other_conditions" },
+		{ $match: { "Other_conditions.Icd10Code": { $ne:  "I469" },"Other_conditions.Part":2  } },
+		{ $group: {_id: "$Other_conditions.Icd10Code", count: {$sum: 1}} },	
+		{ $sort: {count: -1} }, 
+		{ $limit : 5},
+		{ $lookup: {from:"icd10", localField:"_id",foreignField:"Code",as:"Icd10Description"}},
+		{ $unwind : "$Icd10Description" },
+		{ $project : { "_id":0,"code":"$_id","description":"$Icd10Description.Description", "count_of_cases":"$count"  } }
+	  ],{allowDiskUse: true});
+
 	
 printjson(result.toArray());

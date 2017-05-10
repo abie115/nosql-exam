@@ -1,4 +1,11 @@
-"percentage","count","race"
-0.800640512409928,450,"Yellow"
-2.6277527915632755,8133,"Black"
-0.3606051277933179,8083,"White"
+"code","description","count_of_cases"
+"I10","Essential (primary) hypertension",28771
+"F179","Mental and behavioural disorders due to use of tobacco: Unspecified mental and behavioural disorder",25154
+"E149","Unspecified diabetes mellitus: Without complications",14413
+"J449","Chronic obstructive pulmonary disease, unspecified",11588
+"F03","Unspecified dementia",11165
+"I48","Atrial fibrillation and flutter",10858
+"I251","Atherosclerotic heart disease",9503
+"I500","Congestive heart failure",8252
+"E119","Non-insulin-dependent diabetes mellitus: Without complications",6896
+"N189","Chronic kidney disease, unspecified",6761
