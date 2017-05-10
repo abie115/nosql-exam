@@ -7,6 +7,7 @@
 * [Zgony w Stanach Zjednoczonych w 2014 roku](https://www.kaggle.com/cdc/mortality)
 * próbki danych po 1001 dokumentów dla [DeathRecords_sample.csv](https://github.com/abie115/nosql-exam/blob/master/sample/DeathRecords_sample.csv) i [EntityAxisConditions_sample.csv](https://github.com/abie115/nosql-exam/blob/master/sample/EntityAxisConditions_sample.csv) oraz 12131 dokumentów dla [Icd10Code.csv](https://github.com/abie115/nosql-exam/blob/master/sample/Icd10Code.csv)
 * plik _DeathRecords.csv_ obrobiony przy pomocy skryptu w R - [prepare.R](https://github.com/abie115/nosql-exam/blob/master/scripts/prepare.R)
+* wybrane pliki:
 
 | Plik                    | Liczba dokumentów | Czas importu | 
 |-------------------------|-------------------|--------------| 
@@ -60,8 +61,8 @@ _icd10_:
 3. Najczęstsze czynniki pośrednie przyczyniające się do głownej przyczyny śmierci.
 4. Porównanie ilościowe i procentowe zgonów w wyniku zabójstwa, pogrupowane według wybranych ras (niektóre szczegółowe rasy należy zgrupować).
 
-* agregacje w JS dostępne są [tutaj](https://github.com/abie115/nosql-exam/blob/master/scripts). 
-* dodatkowo wszystkie aggregacje zostały napisane i uruchomione w R - skrypt [mongo.R](https://github.com/abie115/nosql-exam/blob/master/scripts/mongo.R), dzięki czemu łatwiej było wykonać wszystkie wykresy oraz tabele. Aby móc korzystać w R z bazy mongodb wymagany jest pakiet _mongolite_.
+* agregacje w JS dostępne są [tutaj](https://github.com/abie115/nosql-exam/blob/master/scripts)
+* dodatkowo wszystkie aggregacje zostały napisane i uruchomione w R - skrypt [mongo.R](https://github.com/abie115/nosql-exam/blob/master/scripts/mongo.R), dzięki czemu łatwiej było wykonać wszystkie wykresy oraz tabele. Aby móc korzystać w R z bazy mongodb wymagany jest pakiet _mongolite_
 
 ## Prezentacja
 
